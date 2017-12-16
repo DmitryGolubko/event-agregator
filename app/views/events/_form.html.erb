@@ -1,0 +1,18 @@
+<%= simple_form_for @event do |f| %>
+  <%= f.input :title %>
+  <%= f.input :text %>
+  <%= f.input :date, as: :datetime, html5: true %>
+
+  <div id="locationField">
+    <!-- <input id="autocomplete" placeholder="Enter your address"
+           onFocus="geolocate()" type="text"></input> -->
+    <%= f.input :place, input_html: { id: 'autocomplete', placeholder: "Enter your address", onfocus: "geolocate()", type: "text"} %>
+  </div>
+
+  <%= f.input :logo, as: :file %>
+  <!-- <%= f.input :place %>
+  <%= select_tag :test, collection: Proc.new { Place.all } %> -->
+
+  <%= f.button :submit %>
+<% end %>
+<%= render 'map_field' %>

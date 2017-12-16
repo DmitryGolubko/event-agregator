@@ -57,6 +57,7 @@ config/application.yml
 config/mandrill.yml
 config/paperclip.yml
 config/secrets.yml
+config/initializers/carrierwave.rb
 
 # System Recordings from Tropo
 public/tropo_recordings/**/*

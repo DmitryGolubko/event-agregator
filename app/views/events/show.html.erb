@@ -1,0 +1,33 @@
+
+<p>
+  <strong>Title:</strong>
+  <%= @event.title %>
+</p>
+
+<p>
+  <strong>Description:</strong>
+  <%= @event.text %>
+</p>
+
+<p>
+  <strong>Date:</strong>
+  <%= @event.date %>
+</p>
+
+<p>
+  <strong>Place:</strong>
+  <%= @event.place %>
+</p>
+
+
+<p>
+  <%= image_tag(@event.logo_url) if @event.logo? %>
+</p>
+
+
+<%= render 'show_map', lat: @event.latitude, lng: @event.longitude %>
+
+
+
+<%= link_to 'Edit', edit_event_path(@event) %> |
+<%= link_to 'Back', events_path %>

@@ -52,3 +52,11 @@ end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
+
+gem 'carrierwave', '~> 1.0'
+gem 'fog-aws'
+gem 'simple_form'
+gem 'bootstrap-sass', '~> 3.2.0'
+gem 'autoprefixer-rails'
+gem 'jquery-rails'
+gem 'geocoder'
