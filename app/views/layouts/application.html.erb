@@ -10,6 +10,10 @@
   </head>
 
   <body>
+    <% if can? :manage, Event %>
+      <%= current_user.email %>
+    <% end %>
     <%= yield %>
+    <%= link_to "Logout", destroy_user_session_path, method: :delete, :class => 'header-button' %>
   </body>
 </html>

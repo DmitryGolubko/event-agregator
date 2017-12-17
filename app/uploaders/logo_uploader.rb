@@ -15,7 +15,7 @@ class LogoUploader < CarrierWave::Uploader::Base
   end
 
   def content_type_whitelist
-    /image\//
+    %w(jpg jpeg png)
   end
 
   # Provide a default URL as a default if there hasn't been a file uploaded:

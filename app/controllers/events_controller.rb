@@ -1,5 +1,7 @@
 class EventsController < ApplicationController
 
+  load_and_authorize_resource
+
   def index
   @events = Event.all
   end
@@ -9,6 +11,7 @@ class EventsController < ApplicationController
   end
 
   def new
+    authorize! :create, Event, :message => "Unable to access this page."
     @event = Event.new
   end
 
@@ -17,7 +20,9 @@ class EventsController < ApplicationController
   end
 
   def create
+
     @event = Event.new(event_params)
+    @event.user_id = current_user.id
   if @event.save
       redirect_to @event
     else
@@ -26,6 +31,7 @@ class EventsController < ApplicationController
   end
 
   def update
+    # authorize! :update, @event
     @event = Event.find(params[:id])
     if @event.update(event_params)
       redirect_to @event
@@ -35,6 +41,7 @@ class EventsController < ApplicationController
   end
 
   def destroy
+    # authorize! :destroy, @event
     @event = Event.find(params[:id])
     @event.destroy
 

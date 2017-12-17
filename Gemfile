@@ -60,3 +60,15 @@ gem 'bootstrap-sass', '~> 3.2.0'
 gem 'autoprefixer-rails'
 gem 'jquery-rails'
 gem 'geocoder'
+
+gem 'therubyracer'
+gem 'devise'
+gem 'omniauth'
+gem 'omniauth-digitalocean'
+gem 'omniauth-facebook'
+gem 'omniauth-google-oauth2'
+gem 'omniauth-vkontakte'
+gem 'omniauth-twitter'
+
+gem 'cancancan', '~> 2.0'
+gem "rolify"
