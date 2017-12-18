@@ -5,7 +5,7 @@ class User < ApplicationRecord
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable,
-         :omniauthable, :omniauth_providers => [:facebook, :twitter, :vkontakte, :google_oauth2]
+         :omniauthable, :omniauth_providers => [:facebook, :vkontakte, :google_oauth2]
 
 
   def self.from_omniauth(auth)
