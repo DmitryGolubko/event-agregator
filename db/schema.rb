@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171217090433) do
+ActiveRecord::Schema.define(version: 20171218011036) do
 
   create_table "comments", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.bigint "user_id"
@@ -22,10 +22,19 @@ ActiveRecord::Schema.define(version: 20171217090433) do
     t.index ["user_id"], name: "index_comments_on_user_id"
   end
 
+  create_table "event_users", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.bigint "user_id"
+    t.bigint "event_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["event_id"], name: "index_event_users_on_event_id"
+    t.index ["user_id"], name: "index_event_users_on_user_id"
+  end
+
   create_table "events", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string "title"
     t.text "text"
-    t.string "date"
+    t.datetime "date"
     t.string "place"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -56,4 +65,6 @@ ActiveRecord::Schema.define(version: 20171217090433) do
 
   add_foreign_key "comments", "events"
   add_foreign_key "comments", "users"
+  add_foreign_key "event_users", "events"
+  add_foreign_key "event_users", "users"
 end

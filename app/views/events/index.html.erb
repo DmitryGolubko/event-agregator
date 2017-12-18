@@ -1,18 +1,26 @@
+<div class="container">
 
-<h1>Listing events</h1>
+      <!-- Page Heading -->
+      <h1 class="my-4">Listing events
+      </h1>
+  <div class="row">
+    <% @events.each do |event| %>
+      <div class="col-lg-4 col-sm-6 portfolio-item">
+        <div class="card h-100">
+          <% if event.logo? %>
+          <%= image_tag(event.logo_url, height: '220', width: '348') %>
+          <% else %>
+          <%= image_tag("no-photo.png", height: '220', width: '348') %>
+          <% end %>
+          <div class="card-body">
+            <h4 class="card-title">
+              <a href= <%= event_path(event) %> > <%= event.title%></a>
+            </h4>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>
 
-<table>
-  <tr>
-    <th>Title</th>
-  </tr>
-
-  <% @events.each do |event| %>
-    <tr>
-      <td><%= event.title %></td>
-      <td><%= link_to 'Show', event_path(event) %></td>
-    </tr>
-  <% end %>
 </table>
-
-
-<%= link_to 'New Event', new_event_path %>

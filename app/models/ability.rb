@@ -8,6 +8,8 @@ class Ability
       can :manage, Event, user_id: user.id
 
       can :manage, Comment, user_id: user.id
+
+      can :manage, EventUser, user_id: user.id
     end
     # Define abilities for the passed in user here. For example:
     #

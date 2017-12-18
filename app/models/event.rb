@@ -1,5 +1,6 @@
 class Event < ApplicationRecord
-  has_many :comments
+  has_many :comments, dependent: :destroy
+  has_many :event_users, dependent: :destroy
   geocoded_by :place
   after_validation :geocode
   validates :title, presence: true,

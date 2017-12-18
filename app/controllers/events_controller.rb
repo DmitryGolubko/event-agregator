@@ -48,6 +48,13 @@ class EventsController < ApplicationController
     redirect_to events_path
   end
 
+  def delete_user_from_event
+    @user = EventUser.find_by(:event_id => params[:event_id], :user_id => params[:user_id])
+    @user.destroy
+    @event = Event.find(params[:event_id])
+    redirect_to @event
+  end
+
 
 private
   def event_params

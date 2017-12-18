@@ -1,8 +1,5 @@
-<h1>Edit event</h1>
-
-<%= render 'form' %>
+<%= render 'form', name: "Edit event" %>
 
 <%= link_to 'Destroy', event_path(@event),
               method: :delete,
-              data: { confirm: 'Are you sure?' } %>              
-<%= link_to 'Back', events_path %>
+              data: { confirm: 'Are you sure?' } %>

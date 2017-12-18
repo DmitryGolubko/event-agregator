@@ -1,58 +1,132 @@
 
-<p>
-  <strong>Title:</strong>
-  <%= @event.title %>
-</p>
+<div class="container">
+<div class="row">
+  <div class="col-sm-8">
+    <div id="myCarousel" class="carousel slide" data-ride="carousel">
+      <!-- Wrapper for slides -->
+      <div class="carousel-inner" >
+        <div class="item active">
+          <% if @event.logo? %>
+          <%= image_tag(@event.logo_url, alt: "Image") %>
+          <% else %>
+          <%= image_tag("no-photo.png", alt: "Image") %>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-sm-4">
+    <div class="well">
+      <h3><%= @event.title %></h3>
+    </div>
+    <div class="well">
+       <h3><%= @event.date.strftime("%e %B %Y %T") %> </h3>
+    </div>
+    <div class="well">
+       <h3><%= @event.place %></h3>
+    </div>
+       <h3><% if can? :create, EventUser %>
+         <% if ((EventUser.find_by(:user_id => current_user.id, :event_id => @event.id)) == nil) %>
+           <p>
+             <%= form_with(model: [ @event, @event.event_users.build ], local: true) do |form| %>
+               <%= form.hidden_field :user_id, :value => current_user.id %>
+           </p>
+           <p>
+             <button style="font-size: 24px" type="submit" class="btn btn-primary btn-lg btn-block" >Join</button>
+           </p>
+           <% end %>
+         <% else %>
+           <button style="font-size: 24px" type="submit" method="post" class="btn btn-primary btn-block">I can't go</button>
+           <%= button_to('I can\'t go', (event_delete_user_from_event_path(:event_id => @event.id, :user_id => current_user.id))) %>
+         <% end %>
+       <% end %>
+      </h3>
+        <% if can? :update, @event %>
 
-<p>
-  <strong>Description:</strong>
-  <%= @event.text %>
-</p>
+          <%= link_to 'Edit', edit_event_path(@event), class: "btn btn-primary btn-lg btn-block", style: "font-size: 24px" %>
+        <% end %>
+      <h3>
 
-<p>
-  <strong>Date:</strong>
-  <%= @event.date %>
-</p>
+      </h3>
+  </div>
+</div>
+<hr>
+</div>
 
-<p>
-  <strong>Place:</strong>
-  <%= @event.place %>
-</p>
+<div class="container text-center">
+  <h3>What do we do</h3>
+  <br>
+  <div class="row">
+    <div class="col-lg-12 text-left">
+      <div class="well">
+       <h3 style="word-wrap: break-word;"><%= @event.text %></h3>
+      </div>
+    </div>
+  </div>
+  <hr>
+</div>
 
-<%= render 'show_map', lat: @event.latitude, lng: @event.longitude %>
+<div class="container text-center">
+  <h3>Where are we</h3>
+  <br>
+  <div class="row">
+    <div class="col-lg-12">
+      <%= render 'show_map', lat: @event.latitude, lng: @event.longitude %>
+    </div>
+  </div>
+  <hr>
+</div>
 
-<p>
-  <%= image_tag(@event.logo_url) if @event.logo? %>
-</p>
 
-<h2>Comments</h2>
-<% @event.comments.each do |comment| %>
-  <p>
-    <strong>Commenter:</strong>
-    <%= User.find(comment.user_id).email %>
-  </p>
+<% if can? :create, Event %>
+  <% if @event.event_users.count > 0 %>
+    <div class="container text-center">
+      <h3>Who is with us</h3>
+      <br>
+      <div class="row">
+        <% (@event.event_users.count).times do |i|%>
+          <div class="col-sm-2">
+            <img src="https://placehold.it/150x80?text=IMAGE" class="img-responsive" style="width:100%" alt="Image">
+            <p><%= User.find(@event.event_users[i].user_id).email%></p>
+          </div>
+        <% end %>
+      </div>
+      <hr>
+    </div>
+  <%end%>
+<% end%>
 
-  <p>
-    <strong>Comment:</strong>
-    <%= comment.body %>
-  </p>
-<% end %>
+<div class="container text-left">
+    <% if can? :create, Comment %>
+      <h4>Leave a Comment:</h4>
+      <%= form_with(model: [ @event, @event.comments.build ], local: true) do |form| %>
+        <p>
+          <%= form.text_area :body, class: "form-control", rows: "4"%>
+          <%= form.hidden_field :user_id, :value => current_user.id %>
+        </p>
+        <p>
+          <button type="submit" class="btn btn-success">Submit</button>
+        </p>
+      <% end %>
+    <% end %>
+  <br><br>
 
-<% if can? :create, Comment %>
-  <h2>Add a comment:</h2>
-  <%= form_with(model: [ @event, @event.comments.build ], local: true) do |form| %>
-    <p>
-      <%= form.label :body %><br>
-      <%= form.text_area :body %>
-      <%= form.hidden_field :user_id, :value => current_user.id %>
-    </p>
-    <p>
-      <%= form.submit %>
-    </p>
-  <% end %>
-<% end %>
+  <p><span class="badge"><%= @event.comments.count %></span> Comments:</p>
 
-<% if can? :update, @event %>
-  <%= link_to 'Edit', edit_event_path(@event) %> |
-<% end %>
-<%= link_to 'Back', events_path %>
+  <div class="row">
+    <div class="col-sm-12">
+      <% (@event.comments.count).times do |i|%>
+        <h4><%= User.find(@event.comments[i].user_id).email%> <small><%= @event.comments[i].created_at.strftime("%e %B %Y %T ") %></small></h4>
+        <p><%= @event.comments[i].body %></p>
+        <% if can? :destroy, @event.comments[i] %>
+          <p>
+          <%= link_to 'Delete Comment', [@event.comments[i].event, @event.comments[i]],
+                       method: :delete,
+                       data: { confirm: 'Are you sure?' } %>
+          </p>
+        <% end %>
+        <br>
+      <% end %>
+    </div>
+  </div>
+</div>
