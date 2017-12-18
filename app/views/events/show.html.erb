@@ -36,8 +36,7 @@
            </p>
            <% end %>
          <% else %>
-           <button style="font-size: 24px" type="submit" method="post" class="btn btn-primary btn-block">I can't go</button>
-           <%= button_to('I can\'t go', (event_delete_user_from_event_path(:event_id => @event.id, :user_id => current_user.id))) %>
+           <%= button_to('I can\'t go', (event_delete_user_from_event_path(:event_id => @event.id, :user_id => current_user.id)), style:"font-size: 24px", class:"btn btn-primary btn-block") %>
          <% end %>
        <% end %>
       </h3>
