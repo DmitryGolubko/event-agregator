@@ -12,7 +12,10 @@
 
 ActiveRecord::Schema.define(version: 20171218163921) do
 
-  create_table "comments", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
+  create_table "comments", force: :cascade do |t|
     t.bigint "user_id"
     t.text "body"
     t.bigint "event_id"
@@ -22,7 +25,7 @@ ActiveRecord::Schema.define(version: 20171218163921) do
     t.index ["user_id"], name: "index_comments_on_user_id"
   end
 
-  create_table "event_users", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+  create_table "event_users", force: :cascade do |t|
     t.bigint "user_id"
     t.bigint "event_id"
     t.datetime "created_at", null: false
@@ -31,7 +34,7 @@ ActiveRecord::Schema.define(version: 20171218163921) do
     t.index ["user_id"], name: "index_event_users_on_user_id"
   end
 
-  create_table "events", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+  create_table "events", force: :cascade do |t|
     t.string "title"
     t.text "text"
     t.datetime "date"
@@ -39,12 +42,12 @@ ActiveRecord::Schema.define(version: 20171218163921) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "logo"
-    t.float "latitude", limit: 24
-    t.float "longitude", limit: 24
+    t.float "latitude"
+    t.float "longitude"
     t.integer "user_id", null: false
   end
 
-  create_table "users", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+  create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
     t.string "reset_password_token"
