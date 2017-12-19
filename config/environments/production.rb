@@ -89,10 +89,10 @@ Rails.application.configure do
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
 
-  GOOGLE_KEY    = Rails.application.secrets.GOOGLE_KEY
-  GOOGLE_SECRET = Rails.application.secrets.GOOGLE_SECRET
-  FB_KEY        = Rails.application.secrets.FB_KEY
-  FB_SECRET     = Rails.application.secrets.FB_SECRET
-  VK_KEY        = Rails.application.secrets.VK_KEY
-  VK_SECRET     = Rails.application.secrets.VK_SECRET
+  # GOOGLE_KEY    = Rails.application.secrets.GOOGLE_KEY
+  # GOOGLE_SECRET = Rails.application.secrets.GOOGLE_SECRET
+  # FB_KEY        = Rails.application.secrets.FB_KEY
+  # FB_SECRET     = Rails.application.secrets.FB_SECRET
+  # VK_KEY        = Rails.application.secrets.VK_KEY
+  # VK_SECRET     = Rails.application.secrets.VK_SECRET
 end
