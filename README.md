@@ -1,24 +1,7 @@
-# README
+# event-agregator
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Simple event aggregator with social networks authorization.
 
-Things you may want to cover:
+Using Amazon S3 for images storage and Google Maps API for meet place choice.
 
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+Running on heroku https://event-agregator.herokuapp.com
