@@ -91,7 +91,6 @@ Procfile.dev
 *.txt
 /doc
 /public/uploads
-/config/secrets.yml
 
 
 # Specific to RubyMotion:
